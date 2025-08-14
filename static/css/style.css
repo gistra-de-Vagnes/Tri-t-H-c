@@ -1,0 +1,451 @@
+/* Simple Philosophy Chat Styles with Smooth Hover Effects */
+
+/* Base styles - simple background */
+body {
+    background: #f8f9fa;
+    color: #333;
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Simple header styles */
+.vintage-header {
+    font-family: 'Playfair Display', serif;
+    color: #8B4513;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.vintage-header:hover {
+    color: #654321;
+}
+
+/* Simple button styles with smooth hover */
+.vintage-button {
+    background: #8B4513;
+    border: 1px solid #8B4513;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.vintage-button:hover {
+    background: #654321;
+    border-color: #654321;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.3);
+}
+
+.vintage-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(139, 69, 19, 0.3);
+}
+
+/* Button variants */
+.vintage-button-primary {
+    background: #D2691E;
+    border-color: #D2691E;
+}
+
+.vintage-button-primary:hover {
+    background: #B8860B;
+    border-color: #B8860B;
+    box-shadow: 0 4px 8px rgba(210, 105, 30, 0.3);
+}
+
+.vintage-button-secondary {
+    background: #6c757d;
+    border-color: #6c757d;
+}
+
+.vintage-button-secondary:hover {
+    background: #545b62;
+    border-color: #545b62;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+/* Simple card styles with smooth hover */
+.vintage-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.vintage-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transform: translateY(-4px);
+    border-color: #8B4513;
+}
+
+/* Simple input styles with smooth focus */
+.vintage-input {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #333;
+    padding: 0.75rem;
+    font-family: 'Georgia', serif;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.vintage-input:focus {
+    border-color: #8B4513;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+    transform: translateY(-1px);
+}
+
+.vintage-input:hover:not(:focus) {
+    border-color: #bbb;
+}
+
+/* Simple link styles with smooth hover */
+.vintage-link {
+    color: #8B4513;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.vintage-link:hover {
+    color: #654321;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.vintage-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #8B4513;
+    transition: width 0.3s ease;
+}
+
+.vintage-link:hover::after {
+    width: 100%;
+}
+
+/* Simple school tags with hover */
+.school-tag {
+    display: inline-block;
+    background: #8B4513;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin: 0.2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    transform: scale(1);
+}
+
+.school-tag:hover {
+    transform: scale(1.05) translateY(-1px);
+    box-shadow: 0 2px 4px rgba(139, 69, 19, 0.3);
+}
+
+/* Different colors for variety */
+.school-tag:nth-child(2n) {
+    background: #D2691E;
+}
+
+.school-tag:nth-child(2n):hover {
+    box-shadow: 0 2px 4px rgba(210, 105, 30, 0.3);
+}
+
+.school-tag:nth-child(3n) {
+    background: #6c757d;
+}
+
+.school-tag:nth-child(3n):hover {
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
+}
+
+.school-tag:nth-child(4n) {
+    background: #28a745;
+}
+
+.school-tag:nth-child(4n):hover {
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.school-tag:nth-child(5n) {
+    background: #007bff;
+}
+
+.school-tag:nth-child(5n):hover {
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Simple grid */
+.responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Simple chat message styles with hover */
+.chat-message {
+    background: white;
+    border: 1px solid #ddd;
+    border-left: 4px solid #8B4513;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.chat-message:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateX(4px);
+    border-left-width: 6px;
+}
+
+.chat-message:nth-child(2n) {
+    border-left-color: #D2691E;
+}
+
+.chat-message:nth-child(3n) {
+    border-left-color: #6c757d;
+}
+
+/* Simple navigation with smooth hover */
+.navbar {
+    background: white !important;
+    border-bottom: 2px solid #8B4513;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.navbar:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.navbar-brand {
+    color: #8B4513 !important;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    color: #654321 !important;
+    transform: scale(1.05);
+}
+
+.nav-link {
+    color: #333 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+.nav-link:hover {
+    color: #8B4513 !important;
+    background-color: rgba(139, 69, 19, 0.1);
+    transform: translateY(-1px);
+}
+
+.nav-link i {
+    color: #8B4513;
+    margin-right: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover i {
+    transform: scale(1.1);
+}
+
+/* Simple form styling with hover */
+form {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+form:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Simple alert messages */
+.alert-success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    border-radius: 4px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.alert-success:hover {
+    box-shadow: 0 2px 4px rgba(21, 87, 36, 0.2);
+}
+
+.alert-error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    border-radius: 4px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.alert-error:hover {
+    box-shadow: 0 2px 4px rgba(114, 28, 36, 0.2);
+}
+
+.alert-info {
+    background: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+    border-radius: 4px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.alert-info:hover {
+    box-shadow: 0 2px 4px rgba(12, 84, 96, 0.2);
+}
+
+/* Simple select styling with hover */
+select.vintage-input {
+    background: white;
+    cursor: pointer;
+}
+
+select.vintage-input:hover {
+    border-color: #8B4513;
+}
+
+/* Smooth hover for images */
+img {
+    transition: all 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.02);
+}
+
+/* Philosopher images with hover */
+.philosopher-image {
+    transition: all 0.3s ease;
+    border-radius: 50%;
+}
+
+.philosopher-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.3);
+}
+
+.philosopher-image-placeholder {
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+}
+
+.philosopher-image-placeholder:hover {
+    background-color: #e9ecef;
+    transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .responsive-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .vintage-header {
+        font-size: 1.8rem;
+    }
+    
+    .vintage-card {
+        padding: 1rem;
+    }
+    
+    /* Reduce hover effects on mobile */
+    .vintage-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .vintage-button:hover {
+        transform: translateY(-1px);
+    }
+}
+
+@media (max-width: 480px) {
+    .vintage-header {
+        font-size: 1.5rem;
+    }
+    
+    .vintage-card {
+        padding: 0.75rem;
+    }
+    
+    .responsive-grid {
+        gap: 0.75rem;
+    }
+    
+    /* Minimal hover effects on small screens */
+    .vintage-card:hover {
+        transform: none;
+    }
+    
+    .vintage-button:hover {
+        transform: none;
+    }
+}
+
+/* Simple utilities */
+.text-center { text-align: center; }
+.mb-4 { margin-bottom: 1rem; }
+.mt-4 { margin-top: 1rem; }
+.p-4 { padding: 1rem; }
+.flex { display: flex; }
+.justify-center { justify-content: center; }
+.items-center { align-items: center; }
+.w-full { width: 100%; }
+
+/* Keep main content styling simple with hover */
+.main-content {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.main-content:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}

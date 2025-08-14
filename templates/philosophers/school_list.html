@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Philosophy Schools - Philosophy Forum{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h2 class="vintage-header text-3xl font-bold mb-8 text-center">Philosophy Schools</h2>
+    
+    <!-- Introduction -->
+    <div class="vintage-card p-8 mb-8 text-center">
+        <p class="text-lg mb-4">
+            Explore the diverse schools of philosophical thought that have shaped human understanding 
+            from ancient times to the present day, spanning both Eastern and Western traditions.
+        </p>
+    </div>
+
+    <!-- Schools Grid -->
+    <div class="responsive-grid">
+        {% for item in schools_with_counts %}
+        <div class="vintage-card p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-lg">
+                    <a href="{% url 'philosophers:school_detail' item.school.pk %}" class="vintage-link">
+                        {{ item.school.name }}
+                    </a>
+                </h3>
+                <span class="school-tag">
+                    {{ item.philosopher_count }} philosopher{{ item.philosopher_count|pluralize }}
+                </span>
+            </div>
+            
+            <div class="text-sm mb-6 leading-relaxed">
+                {{ item.school.description|truncatewords:25 }}
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <a href="{% url 'philosophers:school_detail' item.school.pk %}" 
+                   class="vintage-button px-2 py-1 text-sm">
+                    View Details
+                </a>
+                
+                {% if item.philosopher_count > 0 %}
+                <a href="{% url 'philosophers:philosopher_list' %}?school={{ item.school.pk }}" 
+                   class="vintage-link text-sm">
+                    View philosophers →
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="vintage-card p-8 text-center col-span-3">
+            <p class="text-lg">No philosophy schools have been added yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="vintage-card p-8 mt-8">
+        <div class="text-center">
+            <h3 class="vintage-header text-2xl font-bold mb-6">School Statistics</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="vintage-card p-6">
+                    <div class="text-3xl font-bold mb-2">{{ schools_with_counts|length }}</div>
+                    <div class="text-sm">Total Schools</div>
+                </div>
+                <div class="vintage-card p-6">
+                    <div class="text-3xl font-bold mb-2">
+                        {% widthratio schools_with_counts|length 1 1 %}+
+                    </div>
+                    <div class="text-sm">Philosophical Traditions</div>
+                </div>
+                <div class="vintage-card p-6">
+                    <div class="text-3xl font-bold mb-2">
+                        2000+
+                    </div>
+                    <div class="text-sm">Years of Wisdom</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="vintage-card p-6 mt-8 text-center">
+        <a href="{% url 'philosophers:philosopher_list' %}" 
+           class="vintage-button px-6 py-3 font-bold">
+            View All Philosophers
+        </a>
+    </div>
+</div>
+{% endblock %}

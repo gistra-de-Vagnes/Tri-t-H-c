@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ school.name }} - Philosophy Schools{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <!-- Header Section -->
+    <div class="vintage-card p-8 mb-8 text-center">
+        <h2 class="vintage-header text-3xl font-bold mb-4">{{ school.name }}</h2>
+        <div class="flex justify-center items-center space-x-6 text-sm mb-4">
+            <div class="flex items-center">
+                <i class="fas fa-users mr-2"></i>
+                <span>{{ philosopher_count }} philosopher{{ philosopher_count|pluralize }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Section -->
+    <div class="vintage-card p-8 mb-8">
+        <h3 class="vintage-header text-2xl font-bold mb-4">About This School</h3>
+        <div class="text-sm leading-relaxed">
+            {{ school.description|linebreaks }}
+        </div>
+    </div>
+
+    <!-- Philosophers Section -->
+    <div class="mb-8">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="vintage-header text-2xl font-bold">Philosophers in This School</h3>
+            {% if philosopher_count > 0 %}
+            <span class="school-tag">
+                {{ philosopher_count }} philosopher{{ philosopher_count|pluralize }}
+            </span>
+            {% endif %}
+        </div>
+
+        {% if philosophers %}
+        <div class="responsive-grid">
+            {% for philosopher in philosophers %}
+            <div class="vintage-card p-6 hover:shadow-lg transition-shadow">
+                <div class="flex items-center mb-4">
+                    {% if philosopher.image_url %}
+                    <img src="{{ philosopher.image_url }}" alt="{{ philosopher.name }}"
+                         class="philosopher-image philosopher-image-school mr-4">
+                    {% else %}
+                    <div class="philosopher-image-placeholder philosopher-image-school mr-4">
+                        <i class="fas fa-user text-gray-500"></i>
+                    </div>
+                    {% endif %}
+                    <div>
+                        <h4 class="font-bold">
+                            <a href="{% url 'philosophers:philosopher_detail' philosopher.pk %}" class="vintage-link">
+                                {{ philosopher.name }}
+                            </a>
+                        </h4>
+                        <p class="text-xs text-gray-600">{{ philosopher.lifespan }}</p>
+                        {% if philosopher.country %}
+                        <p class="text-xs text-gray-600">{{ philosopher.country }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="text-xs mb-4 leading-relaxed">
+                    {{ philosopher.bio|truncatewords:20 }}
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <a href="{% url 'philosophers:philosopher_detail' philosopher.pk %}" 
+                       class="vintage-button px-3 py-1 text-sm font-bold">
+                        View Details
+                    </a>
+                    
+                    {% if philosopher.schools.all|length > 1 %}
+                    <span class="text-xs text-gray-500">
+                        +{{ philosopher.schools.all|length|add:"-1" }} other school{{ philosopher.schools.all|length|add:"-1"|pluralize }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <div class="vintage-card p-6 mt-8">
+            <div class="flex justify-center items-center space-x-2">
+                {% if page_obj.has_previous %}
+                <a href="?page=1" class="vintage-button px-3 py-1">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="vintage-button px-3 py-1">Previous</a>
+                {% endif %}
+                
+                <span class="px-4 py-2">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="vintage-button px-3 py-1">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="vintage-button px-3 py-1">Last &raquo;</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="vintage-card p-8 text-center">
+            <i class="fas fa-user text-4xl text-gray-300 mb-4"></i>
+            <p class="text-lg">No philosophers have been added to this school yet.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Navigation -->
+    <div class="vintage-card p-6 text-center">
+        <div class="flex justify-center space-x-4">
+            <a href="{% url 'philosophers:school_list' %}" 
+               class="vintage-button px-6 py-3 font-bold">
+                &larr; Back to Schools
+            </a>
+            
+            <a href="{% url 'philosophers:philosopher_list' %}" 
+               class="vintage-button px-6 py-3 font-bold">
+                View All Philosophers
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

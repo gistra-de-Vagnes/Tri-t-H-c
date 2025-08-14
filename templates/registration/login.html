@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Philosophy Forum{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto">
+    <div class="vintage-card p-8">
+        <h2 class="vintage-header text-2xl font-bold mb-6 text-center">Login</h2>
+        
+        {% if form.errors %}
+        <div class="vintage-card p-4 mb-6 bg-red-50 text-red-700">
+            <p>Your username and password didn't match. Please try again.</p>
+        </div>
+        {% endif %}
+        
+        {% if next %}
+            {% if user.is_authenticated %}
+            <div class="vintage-card p-4 mb-6 bg-amber-50">
+                <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+            </div>
+            {% else %}
+            <div class="vintage-card p-4 mb-6 bg-amber-50">
+                <p>Please login to see this page.</p>
+            </div>
+            {% endif %}
+        {% endif %}
+        
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium mb-1">Username</label>
+                <input type="text" name="username" id="{{ form.username.id_for_label }}" 
+                       class="vintage-input w-full p-2" required>
+            </div>
+            
+            <div>
+                <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium mb-1">Password</label>
+                <input type="password" name="password" id="{{ form.password.id_for_label }}" 
+                       class="vintage-input w-full p-2" required>
+            </div>
+            
+            <div class="flex items-center">
+                <input type="checkbox" name="remember" id="remember" class="mr-2">
+                <label for="remember" class="text-sm">Remember me</label>
+            </div>
+            
+            <button type="submit" class="vintage-button w-full py-3 font-bold">Login</button>
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+        
+        <div class="mt-6 text-center">
+            <p>Don't have an account? <a href="{% url 'philosophers:register' %}" class="vintage-link">Register here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

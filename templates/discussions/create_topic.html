@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Topic - {{ category.name }} - Philosophy Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'discussions:home' %}">Discussions</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'discussions:category_detail' category.pk %}">{{ category.name }}</a></li>
+                    <li class="breadcrumb-item active">Create Topic</li>
+                </ol>
+            </nav>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="vintage-header mb-0">Create New Topic in {{ category.name }}</h2>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Topic Title</label>
+                            <input type="text" name="title" id="title" class="form-control" 
+                                   placeholder="Enter a descriptive title for your topic" required>
+                            <div class="form-text">Choose a clear, descriptive title that summarizes your topic.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Topic Content</label>
+                            <textarea name="content" id="content" class="form-control" rows="10" 
+                                      placeholder="Share your thoughts, questions, or ideas..." required></textarea>
+                            <div class="form-text">
+                                Provide detailed content for your topic. You can ask questions, share insights, 
+                                or start a philosophical discussion.
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'discussions:category_detail' category.pk %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i>Create Topic
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Guidelines -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Discussion Guidelines</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-0">
+                        <li>Keep discussions respectful and philosophical in nature</li>
+                        <li>Provide thoughtful, well-reasoned arguments</li>
+                        <li>Be open to different perspectives and viewpoints</li>
+                        <li>Cite sources when referencing philosophical works</li>
+                        <li>Stay on topic and contribute meaningfully to the discussion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

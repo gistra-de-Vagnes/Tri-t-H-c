@@ -1,0 +1,175 @@
+/* ✨ HOLOGRAPHIC CARD EFFECTS ✨ */
+
+/* Add holographic shine to vintage cards */
+.vintage-card {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.vintage-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(139, 69, 19, 0.1),
+        rgba(210, 105, 30, 0.15),
+        rgba(139, 69, 19, 0.1),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.vintage-card:hover::before {
+    left: 100%;
+}
+
+.vintage-card::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+        45deg,
+        #8B4513,
+        #D2691E,
+        #8B4513,
+        #CD853F,
+        #8B4513
+    );
+    background-size: 300% 300%;
+    border-radius: 10px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: holographicShine 3s ease-in-out infinite;
+}
+
+.vintage-card:hover::after {
+    opacity: 1;
+}
+
+.vintage-card:hover {
+    border-color: transparent !important;
+    box-shadow: 
+        0 8px 16px rgba(0,0,0,0.15),
+        0 0 20px rgba(139, 69, 19, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+@keyframes holographicShine {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Holographic effect for school tags */
+.school-tag {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.school-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.school-tag:hover::before {
+    left: 100%;
+}
+
+/* Holographic effect for buttons */
+.vintage-button {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.vintage-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.vintage-button:hover::before {
+    left: 100%;
+}
+
+/* Holographic effect for chat messages */
+.chat-message {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.chat-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(139, 69, 19, 0.08),
+        transparent
+    );
+    transition: left 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.chat-message:hover::before {
+    left: 100%;
+}
+
+/* Disable holographic effects on mobile for performance */
+@media (max-width: 768px) {
+    .vintage-card::before,
+    .vintage-card::after,
+    .school-tag::before,
+    .vintage-button::before,
+    .chat-message::before {
+        display: none;
+    }
+    
+    .vintage-card:hover {
+        border-color: #8B4513 !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+    }
+}

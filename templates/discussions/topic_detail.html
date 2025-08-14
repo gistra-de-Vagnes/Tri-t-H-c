@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ topic.title }} - Philosophy Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'discussions:home' %}">Discussions</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'discussions:category_detail' topic.category.pk %}">{{ topic.category.name }}</a></li>
+                    <li class="breadcrumb-item active">{{ topic.title|truncatewords:5 }}</li>
+                </ol>
+            </nav>
+
+            <!-- Topic Header -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h1 class="vintage-header">
+                            {% if topic.is_pinned %}
+                            <i class="fas fa-thumbtack text-warning me-2" title="Pinned"></i>
+                            {% endif %}
+                            {% if topic.is_locked %}
+                            <i class="fas fa-lock text-muted me-2" title="Locked"></i>
+                            {% endif %}
+                            {{ topic.title }}
+                        </h1>
+                        <div class="text-muted small text-end">
+                            <div>{{ topic.views }} view{{ topic.views|pluralize }}</div>
+                            <div>{{ topic.get_reply_count }} repl{{ topic.get_reply_count|pluralize:"y,ies" }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-3">
+                            <i class="fas fa-user-circle fa-2x text-muted"></i>
+                        </div>
+                        <div>
+                            <strong>{{ topic.author.username }}</strong>
+                            <br>
+                            <small class="text-muted">{{ topic.created_at|date:"F j, Y \a\t g:i A" }}</small>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-content">
+                        {{ topic.content|linebreaks }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Replies -->
+            {% for reply in replies %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-3">
+                            <i class="fas fa-user-circle fa-lg text-muted"></i>
+                        </div>
+                        <div>
+                            <strong>{{ reply.author.username }}</strong>
+                            <br>
+                            <small class="text-muted">{{ reply.created_at|date:"F j, Y \a\t g:i A" }}</small>
+                            {% if reply.updated_at != reply.created_at %}
+                            <small class="text-muted">(edited {{ reply.updated_at|timesince }} ago)</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="reply-content">
+                        {{ reply.content|linebreaks }}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="card mb-4">
+                <div class="card-body text-center text-muted">
+                    <p>No replies yet. Be the first to respond!</p>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Reply Form -->
+            {% if user.is_authenticated and not topic.is_locked %}
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Post a Reply</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'discussions:create_reply' topic.pk %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Your Reply</label>
+                            <textarea name="content" id="content" class="form-control" rows="5" 
+                                      placeholder="Share your thoughts..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-reply me-1"></i>Post Reply
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% elif not user.is_authenticated %}
+            <div class="card">
+                <div class="card-body text-center">
+                    <p>You must be logged in to reply to this topic.</p>
+                    <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
+                    <a href="{% url 'philosophers:register' %}" class="btn btn-outline-primary">Register</a>
+                </div>
+            </div>
+            {% elif topic.is_locked %}
+            <div class="card">
+                <div class="card-body text-center text-muted">
+                    <i class="fas fa-lock fa-2x mb-2"></i>
+                    <p>This topic is locked and no longer accepting replies.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Discussions - Philosophy Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="vintage-header mb-4">Philosophy Discussions</h1>
+            <p class="lead mb-5">
+                Join thoughtful discussions about philosophical ideas, schools of thought, and the great questions that have shaped human understanding.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Discussion Categories -->
+        <div class="col-lg-8">
+            <h2 class="vintage-header mb-4">Discussion Categories</h2>
+            
+            {% for category in categories %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="card-title">
+                                <a href="{% url 'discussions:category_detail' category.pk %}" class="text-decoration-none">
+                                    {{ category.name }}
+                                </a>
+                            </h5>
+                            <p class="card-text text-muted">{{ category.description|truncatewords:20 }}</p>
+                            <small class="text-muted">
+                                {{ category.topics.count }} topic{{ category.topics.count|pluralize }}
+                            </small>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <a href="{% url 'discussions:category_detail' category.pk %}" class="btn btn-outline-primary btn-sm">
+                                View Topics
+                            </a>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'discussions:create_topic' category.pk %}" class="btn btn-primary btn-sm">
+                                New Topic
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="card">
+                <div class="card-body text-center">
+                    <p class="card-text">No discussion categories available yet.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Recent Topics Sidebar -->
+        <div class="col-lg-4">
+            <h3 class="vintage-header mb-4">Recent Topics</h3>
+            
+            {% for topic in recent_topics %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <a href="{% url 'discussions:topic_detail' topic.pk %}" class="text-decoration-none">
+                            {{ topic.title|truncatewords:8 }}
+                        </a>
+                    </h6>
+                    <small class="text-muted">
+                        by {{ topic.author.username }} • {{ topic.created_at|timesince }} ago
+                    </small>
+                    <br>
+                    <small class="text-muted">
+                        {{ topic.get_reply_count }} repl{{ topic.get_reply_count|pluralize:"y,ies" }} • 
+                        {{ topic.views }} view{{ topic.views|pluralize }}
+                    </small>
+                </div>
+            </div>
+            {% empty %}
+            <div class="card">
+                <div class="card-body text-center">
+                    <p class="card-text">No recent topics.</p>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if not user.is_authenticated %}
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    <h6 class="card-title">Join the Discussion</h6>
+                    <p class="card-text">Create an account to participate in philosophical discussions.</p>
+                    <a href="{% url 'philosophers:register' %}" class="btn btn-primary btn-sm">Register</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">Login</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

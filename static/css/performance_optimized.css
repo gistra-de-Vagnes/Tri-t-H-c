@@ -1,0 +1,184 @@
+/* 🚀 PERFORMANCE OPTIMIZED STYLES 🚀 */
+
+/* 1. DISABLE HEAVY EFFECTS ON MOBILE */
+@media (max-width: 768px) {
+    /* Remove backdrop-filter on mobile */
+    .navbar-brand,
+    .nav-link,
+    .footer-links-simple a,
+    .footer-social-simple a,
+    .back-to-top-simple {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    
+    /* Simplify gradients on mobile */
+    .navbar,
+    .simple-footer {
+        background: #8B4513 !important;
+    }
+    
+    /* Remove background patterns */
+    .navbar::before,
+    .simple-footer::after {
+        display: none !important;
+    }
+    
+    /* Reduce box-shadows */
+    .navbar,
+    .simple-footer,
+    .nav-link:hover,
+    .footer-links-simple a:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+    }
+}
+
+/* 2. RESPECT USER PREFERENCES */
+@media (prefers-reduced-motion: reduce) {
+    /* Disable all animations */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.2s !important;
+    }
+    
+    /* Remove continuous animations */
+    .navbar::after,
+    .simple-footer::before,
+    .navbar-brand i,
+    .footer-brand i {
+        animation: none !important;
+    }
+}
+
+/* 3. PERFORMANCE MODE CLASS */
+.performance-mode .navbar::before,
+.performance-mode .simple-footer::after,
+.performance-mode .navbar::after,
+.performance-mode .simple-footer::before {
+    display: none !important;
+}
+
+.performance-mode .navbar-brand,
+.performance-mode .nav-link,
+.performance-mode .footer-links-simple a,
+.performance-mode .footer-social-simple a {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.performance-mode .navbar,
+.performance-mode .simple-footer {
+    background: #8B4513 !important;
+}
+
+/* 4. OPTIMIZED ANIMATIONS */
+/* Use transform3d for GPU acceleration */
+.nav-link,
+.navbar-brand,
+.footer-links-simple a,
+.footer-social-simple a,
+.back-to-top-simple {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+
+/* Optimize hover effects */
+.nav-link:hover,
+.navbar-brand:hover {
+    transform: translate3d(0, -3px, 0) scale(1.05);
+}
+
+.footer-links-simple a:hover {
+    transform: translate3d(0, -3px, 0) scale(1.05);
+}
+
+.footer-social-simple a:hover {
+    transform: translate3d(0, -5px, 0) scale(1.1);
+}
+
+/* 5. BATTERY SAVING MODE */
+@media (prefers-reduced-motion: reduce) {
+    .navbar-brand i,
+    .footer-brand i {
+        animation: none !important;
+        filter: drop-shadow(0 2px 4px rgba(210, 105, 30, 0.4)) !important;
+    }
+    
+    .navbar::after,
+    .simple-footer::before {
+        animation: none !important;
+        opacity: 0.6 !important;
+    }
+}
+
+/* 6. LOW-END DEVICE DETECTION */
+@media (max-width: 480px) and (max-resolution: 150dpi) {
+    /* Very basic styles for low-end devices */
+    .navbar,
+    .simple-footer {
+        background: #8B4513 !important;
+        box-shadow: none !important;
+    }
+    
+    .navbar::before,
+    .navbar::after,
+    .simple-footer::before,
+    .simple-footer::after {
+        display: none !important;
+    }
+    
+    .nav-link,
+    .navbar-brand,
+    .footer-links-simple a {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: none !important;
+        transition: all 0.2s ease !important;
+    }
+}
+
+/* 7. CRITICAL CSS OPTIMIZATION */
+/* Inline critical styles for above-the-fold content */
+.navbar {
+    contain: layout style paint;
+}
+
+.simple-footer {
+    contain: layout style paint;
+}
+
+/* 8. LOADING OPTIMIZATION */
+/* Prevent layout shift */
+.navbar-brand,
+.nav-link {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+/* 9. MEMORY OPTIMIZATION */
+/* Limit concurrent animations */
+@media (max-width: 768px) {
+    .navbar-brand i,
+    .footer-brand i {
+        animation-delay: 0s !important;
+    }
+}
+
+/* 10. FALLBACK STYLES */
+/* For browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+    .navbar-brand,
+    .nav-link,
+    .footer-links-simple a,
+    .footer-social-simple a {
+        background: rgba(255, 255, 255, 0.15) !important;
+    }
+}
+
+/* 11. TOGGLE BUTTONS REMOVED */
+/* Performance and effects toggle buttons have been removed for cleaner UI */
+/* Auto-optimization still works based on device capabilities */

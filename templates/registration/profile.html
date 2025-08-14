@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - Philosophy Forum{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="vintage-card p-8">
+        <h2 class="vintage-header text-2xl font-bold mb-6 text-center">Your Profile</h2>
+        
+        {% if messages %}
+        <div class="mb-6">
+            {% for message in messages %}
+            <div class="vintage-card p-4 mb-4 {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="flex flex-col md:flex-row items-center mb-8">
+            {% if profile.avatar_url %}
+            <img src="{{ profile.avatar_url }}" alt="Avatar" class="w-24 h-24 rounded-full mr-6 mb-4 md:mb-0 object-cover">
+            {% else %}
+            <div class="w-24 h-24 bg-gray-200 rounded-full mr-6 mb-4 md:mb-0 flex items-center justify-center">
+                <i class="fas fa-user text-gray-500 text-2xl"></i>
+            </div>
+            {% endif %}
+            <div class="text-center md:text-left">
+                <h3 class="text-xl font-bold">{{ user.username }}</h3>
+                <p class="text-gray-600">Member since {{ user.date_joined|date:"F j, Y" }}</p>
+            </div>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="vintage-card p-6">
+                    <h4 class="font-bold text-lg mb-4">Account Information</h4>
+                    <p><span class="font-medium">Username:</span> {{ user.username }}</p>
+                    <p><span class="font-medium">Email:</span> {{ user.email|default:"Not provided" }}</p>
+                    <p><span class="font-medium">Joined:</span> {{ user.date_joined|date:"F j, Y" }}</p>
+                </div>
+                
+                <div class="vintage-card p-6">
+                    <h4 class="font-bold text-lg mb-4">Philosophy Preferences</h4>
+                    <div class="mb-4">
+                        <label for="favorite_school" class="block text-sm font-medium mb-1">Favorite School:</label>
+                        <select name="favorite_school" id="favorite_school" class="vintage-input w-full p-2">
+                            <option value="">Select a school</option>
+                            {% for school in schools %}
+                            <option value="{{ school.id }}" {% if profile.favorite_school.id == school.id %}selected{% endif %}>
+                                {{ school.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="avatar_url" class="block text-sm font-medium mb-1">Avatar URL:</label>
+                        <input type="url" name="avatar_url" id="avatar_url" 
+                               value="{{ profile.avatar_url }}" 
+                               class="vintage-input w-full p-2" 
+                               placeholder="https://example.com/avatar.jpg">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <button type="submit" class="vintage-button px-6 py-3 inline-block font-bold mr-4">
+                    Update Profile
+                </button>
+                <a href="{% url 'philosophers:home' %}" class="vintage-button px-6 py-3 inline-block font-bold">
+                    Back to Home
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Philosophy Forum{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto">
+    <div class="vintage-card p-8">
+        <h2 class="vintage-header text-2xl font-bold mb-6 text-center">Register</h2>
+        
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium mb-1">Username</label>
+                <input type="text" name="username" id="{{ form.username.id_for_label }}" 
+                       class="vintage-input w-full p-2" required>
+                {% if form.username.errors %}
+                <div class="text-red-500 text-sm mt-1">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium mb-1">Password</label>
+                <input type="password" name="password1" id="{{ form.password1.id_for_label }}" 
+                       class="vintage-input w-full p-2" required>
+                {% if form.password1.errors %}
+                <div class="text-red-500 text-sm mt-1">{{ form.password1.errors }}</div>
+                {% endif %}
+                <p class="text-xs text-gray-600 mt-1">Your password must be at least 8 characters long.</p>
+            </div>
+            
+            <div>
+                <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium mb-1">Confirm Password</label>
+                <input type="password" name="password2" id="{{ form.password2.id_for_label }}" 
+                       class="vintage-input w-full p-2" required>
+                {% if form.password2.errors %}
+                <div class="text-red-500 text-sm mt-1">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="vintage-button w-full py-3 font-bold">Register</button>
+        </form>
+        
+        <div class="mt-6 text-center">
+            <p>Already have an account? <a href="{% url 'login' %}" class="vintage-link">Login here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
