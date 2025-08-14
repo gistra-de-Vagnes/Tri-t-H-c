@@ -26,15 +26,23 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-!+z!v!v!v!v!v!v!v!v!v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+# ALLOWED_HOSTS configuration
+allowed_hosts_env = os.environ.get("ALLOWED_HOSTS", "")
+if allowed_hosts_env:
+    ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_env.split(",") if host.strip()]
+else:
+    ALLOWED_HOSTS = []
 
-# Add Render hostname
+# Always include the Render hostname
 if 'tri-t-h-c.onrender.com' not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append('tri-t-h-c.onrender.com')
 
+# For local development
+if DEBUG and 'localhost' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1'])
 
-# Application definition
 
+# Application definiti
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
