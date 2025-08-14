@@ -28,6 +28,9 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
+# Add Render hostname
+if 'tri-t-h-c.onrender.com' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('tri-t-h-c.onrender.com')
 
 
 # Application definition
