@@ -35,11 +35,12 @@ else:
 
 # Always include the Render hostname and localhost
 ALLOWED_HOSTS.extend([
-    'tri-t-h-c.onrender.com',
+    'triethoc.onrender.com',  
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
 ])
+
 
 # Remove duplicates
 ALLOWED_HOSTS = list(set(ALLOWED_HOSTS))
