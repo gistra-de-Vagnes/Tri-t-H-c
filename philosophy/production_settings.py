@@ -3,6 +3,7 @@ Production settings for Philosophy Chat
 """
 import os
 import dj_database_url
+from urllib.parse import urlparse
 from .settings import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -14,9 +15,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-produc
 # Allowed hosts for production
 ALLOWED_HOSTS = []
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+RENDER_EXTERNAL_URL = os.environ.get('RENDER_EXTERNAL_URL')
+if RENDER_EXTERNAL_URL:
+    ALLOWED_HOSTS.append(urlparse(RENDER_EXTERNAL_URL).hostname)
 
 # Security settings for production
 SECURE_BROWSER_XSS_FILTER = True
